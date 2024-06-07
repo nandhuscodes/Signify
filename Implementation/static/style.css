@@ -1,0 +1,38 @@
+/* Add this CSS to your style.css file */
+
+html, body {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+}
+
+/* Additional CSS for toolbar and box models */
+.toolbar {
+    background-color: #1b0758; /* Set background color for toolbar */
+    padding: 10px;
+    text-align: center;
+}
+
+.box-container {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+    padding: 20px;
+    background-color: #E0E0E0; /* Set background color for box container */
+}
+
+.box {
+    width: 45%;
+    padding: 20px;
+    background-color: #FFF; /* Set background color for boxes */
+    border-radius: 10px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+}
+
+.video-container {
+    width: 100%;
+}
+
+#bg {
+    width: 100%;
+}

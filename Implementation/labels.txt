@@ -1,0 +1,30 @@
+0 Bathroom
+1 Break
+2 Call
+3 Cute
+4 Dad
+5 Dislike
+6 Drink
+7 Fighting
+8 Food
+9 Happy
+10 Hello
+11 I Love You
+12 It's Me
+13 Like
+14 Milk
+15 Mom
+16 Name
+17 No
+18 Ok
+19 Peace
+20 Promise
+21 Ready
+22 Saying
+23 Sibling
+24 Silence
+25 Stop
+26 Terrific
+27 Thank You
+28 Water
+29 Yes

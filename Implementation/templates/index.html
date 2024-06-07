@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hand Gesture Recognition</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <style>
+        /* Add this CSS to your style.css file */
+        html, body {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+        }
+
+        .toolbar {
+            background-color: #0a0c46; 
+            color: #f2f2f2;
+            padding: 10px;
+            text-align: center;
+        }
+
+        .sidebar {
+            background-color: #0a0c46;
+            color: white;
+            width: 200px;
+            height: 100%;
+            position: fixed;
+            top: 0;
+            left: 0;
+            overflow-x: hidden;
+            padding-top: 20px;
+        }
+
+        .sidebar a {
+            padding: 10px 8px 10px 16px;
+            text-decoration: none;
+            font-size: 18px;
+            color: white;
+            display: block;
+        }
+
+        .sidebar a:hover {
+            background-color: rgba(0, 87, 179, 0.703);
+            color: white;
+        }
+
+        .box-container {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 20px;
+            padding: 20px;
+        }
+
+        .box {
+            width: 45%;
+            padding: 20px;
+            background-color: #f2f2f2;
+            border-radius: 10px;
+            box-shadow: 0px 0px 10px rgba(241, 238, 238, 0.1);
+        }
+
+        .video-container {
+            width: 100%;
+        }
+
+        #bg {
+            width: 100%;
+        }
+
+        .button-container {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 20px;
+        }
+
+        .button {
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            border: none;
+            border-radius: 5px;
+            background-color: #0b064a;
+            color: white;
+        }
+
+        #prediction-panel {
+            height: 150px;
+            overflow-y: auto;
+        }
+    </style>
+</head>
+<body>
+    <div class="sidebar">
+        <a href="#">Signable</a>
+        <a href="#">Recognize</a>
+        <a href="#">Dictionary</a>
+        <a href="#">Team</a>
+    </div>
+
+    <div class="main-content" style="margin-left: 200px;">
+        <div class="toolbar">
+            <h1>Hand Gesture Recognition</h1>
+        </div>
+
+        <div class="box-container">
+            <div class="box">
+                <h2>Lets Go</h2>
+                <div class="video-container">
+                    <img id="bg" src="{{ url_for('video_feed') }}" alt="Video Stream">
+                </div>
+                <div class="button-container">
+                    <p>Start recognizing sign language.</p>
+                    <p>View the live camera feed.</p>
+                </div>
+            </div>
+
+            <div class="box">
+                <h2>Sign to Text</h2>
+                <div id="prediction-panel"></div>
+                <button class="button" onclick="speech()">Speech</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function updatePredictionPanel(signClass) {
+            document.getElementById('prediction-panel').innerText = signClass;
+        }
+
+        function fetchSignClass() {
+            fetch('/sign_class')
+                .then(response => response.json())
+                .then(data => {
+                    updatePredictionPanel(data.sign_class);
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                });
+        }
+
+        function speech() {
+            const signClass = document.getElementById('prediction-panel').innerText;
+            const utterance = new SpeechSynthesisUtterance(signClass);
+            speechSynthesis.speak(utterance);
+        }
+
+        // Fetch the sign class initially
+        setInterval(fetchSignClass, 1000); // Update every second
+    </script>
+</body>
+</html>
